@@ -50,6 +50,8 @@ cd game-rules
 ./rr serve
 ```
 
+#### Start the Game
+
 ##### Snake Game
 
 The Snake game is a Java app which uses the three started services 
