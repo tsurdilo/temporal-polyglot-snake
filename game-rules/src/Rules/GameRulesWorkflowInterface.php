@@ -12,7 +12,7 @@ use Temporal\Workflow\SignalMethod;
 #[WorkflowInterface]
 interface GameRulesWorkflowInterface
 {
-    #[WorkflowMethod(name: "BoardRules.exec")]
+    #[WorkflowMethod(name: "BoardRules.new")]
     public function exec(
         string $gameInfoStr
     );

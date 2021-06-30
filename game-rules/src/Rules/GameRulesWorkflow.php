@@ -18,13 +18,12 @@ class GameRulesWorkflow implements GameRulesWorkflowInterface
     public function exec($gameInfoStr)
     {
         $this->gameInfoObj = json_decode($gameInfoStr);
-        // set size for x, y arrays
+
         $this->x = array_fill(0, $this->gameInfoObj->{'allDots'}, 0);
         $this->x = array_fill(0, $this->gameInfoObj->{'allDots'}, 0);
 
-        Workflow::await(fn() => $this->exit == true);
+        Workflow::await(fn() => $this->exit == true );
     }
-
 
     public function getX(): array
     {
