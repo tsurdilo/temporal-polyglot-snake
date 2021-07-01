@@ -5,22 +5,22 @@ import (
 )
 
 type GameInfo struct {
-	BWidth          int
-	BHeight         int
-	DotSize         int
-	AllDots         int
-	RandPos         int
-	Delay           int
-	Resizable       bool
-	Title           string
-	DotImg          string
-	AppleImg        string
-	HeadImg         string
-	TemporalImg     string
-	Focusable       bool
-	GameOverMessage string
-	FontName        string
-	FontSize        int
+	BWidth          int       `json:"bWidth"`
+	BHeight         int       `json:"bHeight"`
+	DotSize         int       `json:"dotSize"`
+	AllDots         int       `json:"allDots"`
+	RandPos         int       `json:"randPos"`
+	Delay           int       `json:"delay"`
+	Resizable       bool      `json:"resizable"`
+	Title           string    `json:"title"`
+	DotImg          string    `json:"dotImg"`
+	AppleImg        string    `json:"appleImg"`
+	HeadImg         string    `json:"headImg"`
+	TemporalImg     string    `json:"temporalImg"`
+	Focusable       bool      `json:"focusable"`
+	GameOverMessage string    `json:"gameOverMessage"`
+	FontName        string    `json:"fontName"`
+	FontSize        int       `json:"fontSize"`
 }
 
 func GameInfoWorkflow(ctx workflow.Context) (*GameInfo, error) {

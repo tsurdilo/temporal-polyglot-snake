@@ -1,169 +1,169 @@
 package io.temporal.snakegame.controller;
 
 public class GameInfo {
-    private int BWidth;
-    private int BHeight;
-    private int DotSize;
-    private int AllDots;
-    private int RandPos;
-    private int Delay;
-    private boolean Resizable;
-    private String Title;
-    private String DotImg;
-    private String AppleImg;
-    private String HeadImg;
-    private String TemporalImg;
-    private boolean Focusable;
-    private String GameOverMessage;
-    private String FontName;
-    private int FontSize;
+    private int bWidth;
+    private int bHeight;
+    private int dotSize;
+    private int allDots;
+    private int randPos;
+    private int delay;
+    private boolean resizable;
+    private String title;
+    private String dotImg;
+    private String appleImg;
+    private String headImg;
+    private String temporalImg;
+    private boolean focusable;
+    private String gameOverMessage;
+    private String fontName;
+    private int fontSize;
 
     public GameInfo() {}
 
-    public GameInfo(int BWidth, int BHeight, int dotSize, int allDots, int randPos, int delay, boolean resizable, String title, String dotImg, String appleImg, String headImg, String temporalImg, boolean focusable, String gameOverMessage, String fontName, int fontSize) {
-        this.BWidth = BWidth;
-        this.BHeight = BHeight;
-        DotSize = dotSize;
-        AllDots = allDots;
-        RandPos = randPos;
-        Delay = delay;
-        Resizable = resizable;
-        Title = title;
-        DotImg = dotImg;
-        AppleImg = appleImg;
-        HeadImg = headImg;
-        TemporalImg = temporalImg;
-        Focusable = focusable;
-        GameOverMessage = gameOverMessage;
-        FontName = fontName;
-        FontSize = fontSize;
+    public GameInfo(int bWidth, int bHeight, int dotSize, int allDots, int randPos, int delay, boolean resizable, String title, String dotImg, String appleImg, String headImg, String temporalImg, boolean focusable, String gameOverMessage, String fontName, int fontSize) {
+        this.bWidth = bWidth;
+        this.bHeight = bHeight;
+        this.dotSize = dotSize;
+        this.allDots = allDots;
+        this.randPos = randPos;
+        this.delay = delay;
+        this.resizable = resizable;
+        this.title = title;
+        this.dotImg = dotImg;
+        this.appleImg = appleImg;
+        this.headImg = headImg;
+        this.temporalImg = temporalImg;
+        this.focusable = focusable;
+        this.gameOverMessage = gameOverMessage;
+        this.fontName = fontName;
+        this.fontSize = fontSize;
     }
 
-    public int getBWidth() {
-        return BWidth;
+    public int getbWidth() {
+        return bWidth;
     }
 
-    public void setBWidth(int BWidth) {
-        this.BWidth = BWidth;
+    public void setbWidth(int bWidth) {
+        this.bWidth = bWidth;
     }
 
-    public int getBHeight() {
-        return BHeight;
+    public int getbHeight() {
+        return bHeight;
     }
 
-    public void setBHeight(int BHeight) {
-        this.BHeight = BHeight;
+    public void setbHeight(int bHeight) {
+        this.bHeight = bHeight;
     }
 
     public int getDotSize() {
-        return DotSize;
+        return dotSize;
     }
 
     public void setDotSize(int dotSize) {
-        DotSize = dotSize;
+        this.dotSize = dotSize;
     }
 
     public int getAllDots() {
-        return AllDots;
+        return allDots;
     }
 
     public void setAllDots(int allDots) {
-        AllDots = allDots;
+        this.allDots = allDots;
     }
 
     public int getRandPos() {
-        return RandPos;
+        return randPos;
     }
 
     public void setRandPos(int randPos) {
-        RandPos = randPos;
+        this.randPos = randPos;
     }
 
     public int getDelay() {
-        return Delay;
+        return delay;
     }
 
     public void setDelay(int delay) {
-        Delay = delay;
+        this.delay = delay;
     }
 
     public boolean isResizable() {
-        return Resizable;
+        return resizable;
     }
 
     public void setResizable(boolean resizable) {
-        Resizable = resizable;
+        this.resizable = resizable;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getDotImg() {
-        return DotImg;
+        return dotImg;
     }
 
     public void setDotImg(String dotImg) {
-        DotImg = dotImg;
+        this.dotImg = dotImg;
     }
 
     public String getAppleImg() {
-        return AppleImg;
+        return appleImg;
     }
 
     public void setAppleImg(String appleImg) {
-        AppleImg = appleImg;
+        this.appleImg = appleImg;
     }
 
     public String getHeadImg() {
-        return HeadImg;
+        return headImg;
     }
 
     public void setHeadImg(String headImg) {
-        HeadImg = headImg;
+        this.headImg = headImg;
     }
 
     public String getTemporalImg() {
-        return TemporalImg;
+        return temporalImg;
     }
 
     public void setTemporalImg(String temporalImg) {
-        TemporalImg = temporalImg;
+        this.temporalImg = temporalImg;
     }
 
     public boolean isFocusable() {
-        return Focusable;
+        return focusable;
     }
 
     public void setFocusable(boolean focusable) {
-        Focusable = focusable;
+        this.focusable = focusable;
     }
 
     public String getGameOverMessage() {
-        return GameOverMessage;
+        return gameOverMessage;
     }
 
     public void setGameOverMessage(String gameOverMessage) {
-        GameOverMessage = gameOverMessage;
+        this.gameOverMessage = gameOverMessage;
     }
 
     public String getFontName() {
-        return FontName;
+        return fontName;
     }
 
     public void setFontName(String fontName) {
-        FontName = fontName;
+        this.fontName = fontName;
     }
 
     public int getFontSize() {
-        return FontSize;
+        return fontSize;
     }
 
     public void setFontSize(int fontSize) {
-        FontSize = fontSize;
+        this.fontSize = fontSize;
     }
 }

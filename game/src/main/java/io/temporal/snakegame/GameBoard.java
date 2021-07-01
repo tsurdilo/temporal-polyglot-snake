@@ -42,7 +42,7 @@ public class GameBoard extends JPanel implements ActionListener {
         setBackground(Color.black);
         setFocusable(gameInfo.isFocusable());
 
-        setPreferredSize(new Dimension(gameInfo.getBWidth(), gameInfo.getBHeight()));
+        setPreferredSize(new Dimension(gameInfo.getbWidth(), gameInfo.getbHeight()));
         loadImages();
         initGame();
     }
@@ -108,7 +108,7 @@ public class GameBoard extends JPanel implements ActionListener {
 
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString(msg, (gameInfo.getBWidth() - metr.stringWidth(msg)) / 2, gameInfo.getBHeight() / 2);
+        g.drawString(msg, (gameInfo.getbWidth() - metr.stringWidth(msg)) / 2, gameInfo.getbHeight() / 2);
 
         boardRulesWorkflow.exitGame();
         //this.boardRulesStub.signal("exitGame");
@@ -171,7 +171,7 @@ public class GameBoard extends JPanel implements ActionListener {
             }
         }
 
-        if (y[0] >= gameInfo.getBHeight()) {
+        if (y[0] >= gameInfo.getbHeight()) {
             inGame = false;
         }
 
@@ -179,7 +179,7 @@ public class GameBoard extends JPanel implements ActionListener {
             inGame = false;
         }
 
-        if (x[0] >= gameInfo.getBWidth()) {
+        if (x[0] >= gameInfo.getbWidth()) {
             inGame = false;
         }
 
