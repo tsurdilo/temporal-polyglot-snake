@@ -8,38 +8,38 @@ import io.temporal.workflow.WorkflowMethod;
 @WorkflowInterface
 public interface GameRulesWorkflowInterface {
     @WorkflowMethod(name = "BoardRules.new")
-    public void exec(String gameInfoStr);
+    void exec(int allDots, int dotSize);
 
     @QueryMethod
-    public int[] getX();
+    int[] getX();
 
     @QueryMethod
-    public int[] getY();
+    int[] getY();
 
     @QueryMethod
-    public int getDots();
+    int getDots();
 
     @SignalMethod
-    public void init();
+    void init();
 
     @SignalMethod
-    public void move();
+    void move();
 
     @SignalMethod
-    public void moveLeft();
+    void moveLeft();
 
     @SignalMethod
-    public void moveRight();
+    void moveRight();
 
     @SignalMethod
-    public void moveUp();
+    void moveUp();
 
     @SignalMethod
-    public void moveDown();
+    void moveDown();
 
     @SignalMethod
-    public void addDot();
+    void addDot();
 
     @SignalMethod
-    public void exitGame();
+    void exitGame();
 }

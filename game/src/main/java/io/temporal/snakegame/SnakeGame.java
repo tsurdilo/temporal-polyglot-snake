@@ -1,13 +1,11 @@
 package io.temporal.snakegame;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
 import io.temporal.client.WorkflowStub;
 import io.temporal.serviceclient.WorkflowServiceStubs;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class SnakeGame extends JFrame {
 
@@ -40,21 +38,21 @@ public class SnakeGame extends JFrame {
         //boardRulesStub = CLIENT.newUntypedWorkflowStub(BOARD_RULES_WORKFLOW_TYPE, BOARD_RULES_WORKFLOW_OPTIONS);
         //boardRulesStub.start();
 
-        JsonNode gameInfo = null;
+        GameInfo gameInfo = null;
         boolean gotGameInfo = false;
 
         while (!gotGameInfo) {
-            gameInfo = controllerStub.query("getGameInfo", JsonNode.class);
+            gameInfo = controllerStub.query("getGameInfo", GameInfo.class);
             if (gameInfo != null) {
                 gotGameInfo = true;
             }
         }
 
         add(new GameBoard(gameInfo, boardRulesWorkflow));
-        setResizable(gameInfo.get("resizable").asBoolean());
+        setResizable(gameInfo.isResizable());
         pack();
 
-        setTitle(gameInfo.get("title").asText());
+        setTitle(gameInfo.getTitle());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

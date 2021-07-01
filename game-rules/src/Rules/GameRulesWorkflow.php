@@ -12,12 +12,14 @@ class GameRulesWorkflow implements GameRulesWorkflowInterface
     private array $x = array();
     private array $y = array();
     private int $dots = 3;
-    private mixed $gameInfoObj;
+    private int $allDots;
+    private int $dotSize;
     private bool $exit = false;
 
-    public function exec($gameInfoStr)
+    public function exec($allDots, $dotSize)
     {
-        $this->gameInfoObj = json_decode($gameInfoStr);
+        $this->allDots = $allDots;
+        $this->dotSize = $dotSize;
 
         Workflow::await(fn() => $this->exit == true );
     }
@@ -39,8 +41,8 @@ class GameRulesWorkflow implements GameRulesWorkflowInterface
 
     public function init(): void
     {
-        $this->x = array_fill(0, $this->gameInfoObj->{'allDots'}, 0);
-        $this->x = array_fill(0, $this->gameInfoObj->{'allDots'}, 0);
+        $this->x = array_fill(0, $this->allDots, 0);
+        $this->x = array_fill(0, $this->dotSize, 0);
 
         for($z = 0; $z < $this->dots; $z++) {
             $this->x[$z] = 50 - $z * 10;
@@ -58,22 +60,22 @@ class GameRulesWorkflow implements GameRulesWorkflowInterface
 
     public function moveLeft(): void
     {
-        $this->x[0] -= $this->gameInfoObj->{'dotSize'};
+        $this->x[0] -= $this->dotSize;
     }
 
     public function moveRight(): void
     {
-        $this->x[0] += $this->gameInfoObj->{'dotSize'};
+        $this->x[0] += $this->dotSize;
     }
 
     public function moveUp(): void
     {
-        $this->y[0] -= $this->gameInfoObj->{'dotSize'};
+        $this->y[0] -= $this->dotSize;
     }
 
     public function moveDown(): void
     {
-        $this->y[0] += $this->gameInfoObj->{'dotSize'};
+        $this->y[0] += $this->dotSize;
     }
 
     public function addDot(): void {

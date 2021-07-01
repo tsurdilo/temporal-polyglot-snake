@@ -14,7 +14,7 @@ interface GameRulesWorkflowInterface
 {
     #[WorkflowMethod(name: "BoardRules.new")]
     public function exec(
-        string $gameInfoStr
+        int $allDots, int $dotSize
     );
 
     #[QueryMethod]

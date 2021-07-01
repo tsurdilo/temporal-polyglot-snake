@@ -1,6 +1,5 @@
 package io.temporal.snakegame.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.temporal.workflow.QueryMethod;
 import io.temporal.workflow.SignalMethod;
 import io.temporal.workflow.WorkflowInterface;
@@ -15,5 +14,5 @@ public interface GameController {
     void exitGame();
 
     @QueryMethod
-    JsonNode getGameInfo();
+    GameInfo getGameInfo();
 }

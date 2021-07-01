@@ -2,7 +2,6 @@ package io.temporal.snakegame.controller;
 
 import io.temporal.activity.ActivityOptions;
 import io.temporal.workflow.Workflow;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 
 import java.time.Duration;
@@ -14,7 +13,7 @@ public class GameControllerImpl implements GameController {
                     GameControllerActivities.class,
                     ActivityOptions.newBuilder().setStartToCloseTimeout(Duration.ofSeconds(5)).build());
 
-    private JsonNode gameInfo;
+    private GameInfo gameInfo;
     private boolean exit;
     private Logger logger = Workflow.getLogger("GameControllerImpl");
 
@@ -32,7 +31,7 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
-    public JsonNode getGameInfo() {
+    public GameInfo getGameInfo() {
         return gameInfo;
     }
 }

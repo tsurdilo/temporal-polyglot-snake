@@ -1,8 +1,6 @@
 package io.temporal.snakegame;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import io.temporal.client.WorkflowClient;
-import io.temporal.client.WorkflowStub;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,13 +25,13 @@ public class GameBoard extends JPanel implements ActionListener {
     private Image apple;
     private Image head;
 
-    private JsonNode gameInfo;
+    private GameInfo gameInfo;
     private GameRulesWorkflowInterface boardRulesWorkflow;
 
-    public GameBoard(JsonNode gameInfo, GameRulesWorkflowInterface boardRulesWorkflow) {
+    public GameBoard(GameInfo gameInfo, GameRulesWorkflowInterface boardRulesWorkflow) {
         this.gameInfo = gameInfo;
         this.boardRulesWorkflow = boardRulesWorkflow;
-        WorkflowClient.start(this.boardRulesWorkflow::exec, gameInfo.toString());
+        WorkflowClient.start(this.boardRulesWorkflow::exec, gameInfo.getAllDots(), gameInfo.getDotSize());
 
         initGameBoard();
     }
@@ -42,22 +40,22 @@ public class GameBoard extends JPanel implements ActionListener {
 
         addKeyListener(new GameKeyAdapter());
         setBackground(Color.black);
-        setFocusable(gameInfo.get("allDots").asBoolean());
+        setFocusable(gameInfo.isFocusable());
 
-        setPreferredSize(new Dimension(gameInfo.get("bWidth").asInt(), gameInfo.get("bHeight").asInt()));
+        setPreferredSize(new Dimension(gameInfo.getBWidth(), gameInfo.getBHeight()));
         loadImages();
         initGame();
     }
 
     private void loadImages() {
 
-        ImageIcon iid = new ImageIcon(gameInfo.get("dotimg").asText());
+        ImageIcon iid = new ImageIcon(gameInfo.getDotImg());
         ball = iid.getImage();
 
-        ImageIcon iia = new ImageIcon(gameInfo.get("appleimg").asText());
+        ImageIcon iia = new ImageIcon(gameInfo.getAppleImg());
         apple = iia.getImage();
 
-        ImageIcon iih = new ImageIcon(gameInfo.get("headimg").asText());
+        ImageIcon iih = new ImageIcon(gameInfo.getHeadImg());
         head = iih.getImage();
     }
 
@@ -67,7 +65,7 @@ public class GameBoard extends JPanel implements ActionListener {
 
         locateApple();
 
-        timer = new Timer(gameInfo.get("delay").asInt(), this);
+        timer = new Timer(gameInfo.getDelay(), this);
         timer.start();
     }
 
@@ -75,7 +73,7 @@ public class GameBoard extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        ImageIcon img = new ImageIcon(gameInfo.get("temporalimg").asText());
+        ImageIcon img = new ImageIcon(gameInfo.getTemporalImg());
         g.drawImage(img.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
 
         doDrawing(g);
@@ -104,13 +102,13 @@ public class GameBoard extends JPanel implements ActionListener {
     }
 
     private void gameOver(Graphics g) {
-        String msg = gameInfo.get("gameOverMessage").asText();
-        Font small = new Font(gameInfo.get("fontName").asText(), Font.BOLD, gameInfo.get("fontSize").asInt());
+        String msg = gameInfo.getGameOverMessage();
+        Font small = new Font(gameInfo.getFontName(), Font.BOLD, gameInfo.getFontSize());
         FontMetrics metr = getFontMetrics(small);
 
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString(msg, (gameInfo.get("bWidth").asInt() - metr.stringWidth(msg)) / 2, gameInfo.get("bHeight").asInt() / 2);
+        g.drawString(msg, (gameInfo.getBWidth() - metr.stringWidth(msg)) / 2, gameInfo.getBHeight() / 2);
 
         boardRulesWorkflow.exitGame();
         //this.boardRulesStub.signal("exitGame");
@@ -118,11 +116,11 @@ public class GameBoard extends JPanel implements ActionListener {
 
     private void locateApple() {
 
-        int r = (int) (Math.random() * gameInfo.get("randPos").asInt());
-        appleX = ((r * gameInfo.get("dotSize").asInt()));
+        int r = (int) (Math.random() * gameInfo.getRandPos());
+        appleX = ((r * gameInfo.getDotSize()));
 
-        r = (int) (Math.random() * gameInfo.get("randPos").asInt());
-        appleY = ((r * gameInfo.get("dotSize").asInt()));
+        r = (int) (Math.random() * gameInfo.getRandPos());
+        appleY = ((r * gameInfo.getDotSize()));
     }
 
     @Override
@@ -137,41 +135,35 @@ public class GameBoard extends JPanel implements ActionListener {
 
     private void move() {
         boardRulesWorkflow.move();
-       // boardRulesStub.signal("move");
 
         if (leftDirection) {
             boardRulesWorkflow.moveLeft();
-           // boardRulesStub.signal("moveLeft");
         }
 
         if (rightDirection) {
             boardRulesWorkflow.moveRight();
-            //boardRulesStub.signal("moveRight");
         }
 
         if (upDirection) {
             boardRulesWorkflow.moveUp();
-            //boardRulesStub.signal("moveUp");
         }
 
         if (downDirection) {
             boardRulesWorkflow.moveDown();
-            //boardRulesStub.signal("moveDown");
         }
     }
 
     private void checkApple() {
         if ((boardRulesWorkflow.getX()[0] == appleX) && (boardRulesWorkflow.getY()[0] == appleY)) {
             boardRulesWorkflow.addDot();
-            //boardRulesStub.signal("addDot");
             locateApple();
         }
     }
 
     private void checkCollision() {
-        int dots = boardRulesWorkflow.getDots();//boardRulesStub.query("getDots", int.class);
-        int[] x = boardRulesWorkflow.getX();//boardRulesStub.query("getX", int[].class);
-        int[] y = boardRulesWorkflow.getY();// boardRulesStub.query("getY", int[].class);
+        int dots = boardRulesWorkflow.getDots();
+        int[] x = boardRulesWorkflow.getX();
+        int[] y = boardRulesWorkflow.getY();
 
         for (int z = dots; z > 0; z--) {
             if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
@@ -179,7 +171,7 @@ public class GameBoard extends JPanel implements ActionListener {
             }
         }
 
-        if (y[0] >= gameInfo.get("bHeight").asInt()) {
+        if (y[0] >= gameInfo.getBHeight()) {
             inGame = false;
         }
 
@@ -187,7 +179,7 @@ public class GameBoard extends JPanel implements ActionListener {
             inGame = false;
         }
 
-        if (x[0] >= gameInfo.get("bWidth").asInt()) {
+        if (x[0] >= gameInfo.getBWidth()) {
             inGame = false;
         }
 

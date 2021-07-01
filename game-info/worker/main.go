@@ -18,7 +18,6 @@ func main() {
 
 	w := worker.New(c, "InfoTaskQueue", worker.Options{})
 	w.RegisterWorkflow(gameinfo.GameInfoWorkflow)
-	w.RegisterActivity(gameinfo.GameInfoActivity)
 
 	err = w.Run(worker.InterruptCh())
 	if err != nil {
