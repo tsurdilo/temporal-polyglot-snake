@@ -11,7 +11,7 @@ This demo uses the following Temporal SDKs:
 * [Go](https://docs.temporal.io/docs/go/introduction)
 * [PHP](https://docs.temporal.io/docs/php/introduction)
 
-This demo demonstrates how Temporal can be used to orchestrate multiple 
+This demo shows how Temporal can be used to orchestrate multiple polyglot 
 services responsible for different parts of a snake game. 
 
 ### Running the demo
