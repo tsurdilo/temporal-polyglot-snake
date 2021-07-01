@@ -8,7 +8,7 @@ import io.temporal.workflow.WorkflowMethod;
 @WorkflowInterface
 public interface GameRulesWorkflowInterface {
     @WorkflowMethod(name = "BoardRules.new")
-    public void exec(String gameInfoStr, int[] x, int[] y, int dots);
+    public void exec(String gameInfoStr);
 
     @QueryMethod
     public int[] getX();

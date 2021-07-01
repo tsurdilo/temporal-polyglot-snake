@@ -33,8 +33,7 @@ public class GameBoard extends JPanel implements ActionListener {
     public GameBoard(JsonNode gameInfo, GameRulesWorkflowInterface boardRulesWorkflow) {
         this.gameInfo = gameInfo;
         this.boardRulesWorkflow = boardRulesWorkflow;
-        WorkflowClient.start(this.boardRulesWorkflow::exec, gameInfo.toString(),
-        new int[1], new int[1], 3);
+        WorkflowClient.start(this.boardRulesWorkflow::exec, gameInfo.toString());
 
         initGameBoard();
     }
