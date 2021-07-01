@@ -1,6 +1,7 @@
 package io.temporal.snakegame;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowStub;
 
 import javax.swing.*;
@@ -27,12 +28,13 @@ public class GameBoard extends JPanel implements ActionListener {
     private Image head;
 
     private JsonNode gameInfo;
-    private WorkflowStub boardRulesStub;
+    private GameRulesWorkflowInterface boardRulesWorkflow;
 
-    public GameBoard(JsonNode gameInfo, WorkflowStub boardRulesStub) {
+    public GameBoard(JsonNode gameInfo, GameRulesWorkflowInterface boardRulesWorkflow) {
         this.gameInfo = gameInfo;
-        this.boardRulesStub = boardRulesStub;
-        this.boardRulesStub.start(gameInfo.toString());
+        this.boardRulesWorkflow = boardRulesWorkflow;
+        WorkflowClient.start(this.boardRulesWorkflow::exec, gameInfo.toString(),
+        new int[1], new int[1], 3);
 
         initGameBoard();
     }
@@ -61,7 +63,8 @@ public class GameBoard extends JPanel implements ActionListener {
     }
 
     private void initGame() {
-        boardRulesStub.signal("init");
+        boardRulesWorkflow.init();
+        //boardRulesStub.signal("init");
 
         locateApple();
 
@@ -81,9 +84,9 @@ public class GameBoard extends JPanel implements ActionListener {
 
     private void doDrawing(Graphics g) {
         if (inGame) {
-            int dots = boardRulesStub.query("getDots", int.class);
-            int[] x = boardRulesStub.query("getX", int[].class);
-            int[] y = boardRulesStub.query("getY", int[].class);
+            int dots = boardRulesWorkflow.getDots();//zboardRulesStub.query("getDots", int.class);
+            int[] x = boardRulesWorkflow.getX();//boardRulesStub.query("getX", int[].class);
+            int[] y = boardRulesWorkflow.getY(); //boardRulesStub.query("getY", int[].class);
             g.drawImage(apple, appleX, appleY, this);
             for (int z = 0; z < dots; z++) {
                 if (z == 0) {
@@ -110,7 +113,8 @@ public class GameBoard extends JPanel implements ActionListener {
         g.setFont(small);
         g.drawString(msg, (gameInfo.get("bWidth").asInt() - metr.stringWidth(msg)) / 2, gameInfo.get("bHeight").asInt() / 2);
 
-        this.boardRulesStub.signal("exitGame");
+        boardRulesWorkflow.exitGame();
+        //this.boardRulesStub.signal("exitGame");
     }
 
     private void locateApple() {
@@ -133,36 +137,42 @@ public class GameBoard extends JPanel implements ActionListener {
     }
 
     private void move() {
-        boardRulesStub.signal("move");
+        boardRulesWorkflow.move();
+       // boardRulesStub.signal("move");
 
         if (leftDirection) {
-            boardRulesStub.signal("moveLeft");
+            boardRulesWorkflow.moveLeft();
+           // boardRulesStub.signal("moveLeft");
         }
 
         if (rightDirection) {
-            boardRulesStub.signal("moveRight");
+            boardRulesWorkflow.moveRight();
+            //boardRulesStub.signal("moveRight");
         }
 
         if (upDirection) {
-            boardRulesStub.signal("moveUp");
+            boardRulesWorkflow.moveUp();
+            //boardRulesStub.signal("moveUp");
         }
 
         if (downDirection) {
-            boardRulesStub.signal("moveDown");
+            boardRulesWorkflow.moveDown();
+            //boardRulesStub.signal("moveDown");
         }
     }
 
     private void checkApple() {
-        if ((boardRulesStub.query("getX", int[].class)[0] == appleX) && (boardRulesStub.query("getY", int[].class)[0] == appleY)) {
-            boardRulesStub.signal("addDot");
+        if ((boardRulesWorkflow.getX()[0] == appleX) && (boardRulesWorkflow.getY()[0] == appleY)) {
+            boardRulesWorkflow.addDot();
+            //boardRulesStub.signal("addDot");
             locateApple();
         }
     }
 
     private void checkCollision() {
-        int dots = boardRulesStub.query("getDots", int.class);
-        int[] x = boardRulesStub.query("getX", int[].class);
-        int[] y = boardRulesStub.query("getY", int[].class);
+        int dots = boardRulesWorkflow.getDots();//boardRulesStub.query("getDots", int.class);
+        int[] x = boardRulesWorkflow.getX();//boardRulesStub.query("getX", int[].class);
+        int[] y = boardRulesWorkflow.getY();// boardRulesStub.query("getY", int[].class);
 
         for (int z = dots; z > 0; z--) {
             if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {

@@ -29,13 +29,15 @@ public class SnakeGame extends JFrame {
             .build();
 
     private WorkflowStub controllerStub;
-    private WorkflowStub boardRulesStub;
+    private GameRulesWorkflowInterface boardRulesWorkflow;
 
     public SnakeGame() {
         controllerStub = CLIENT.newUntypedWorkflowStub(CONTROLLER_WORKFLOW_TYPE, CONTROLLER_WORKFLOW_OPTIONS);
         controllerStub.start();
-        
-        boardRulesStub = CLIENT.newUntypedWorkflowStub(BOARD_RULES_WORKFLOW_TYPE, BOARD_RULES_WORKFLOW_OPTIONS);
+
+        boardRulesWorkflow = CLIENT.newWorkflowStub(GameRulesWorkflowInterface.class, BOARD_RULES_WORKFLOW_OPTIONS);
+
+        //boardRulesStub = CLIENT.newUntypedWorkflowStub(BOARD_RULES_WORKFLOW_TYPE, BOARD_RULES_WORKFLOW_OPTIONS);
         //boardRulesStub.start();
 
         JsonNode gameInfo = null;
@@ -48,7 +50,7 @@ public class SnakeGame extends JFrame {
             }
         }
 
-        add(new GameBoard(gameInfo, boardRulesStub));
+        add(new GameBoard(gameInfo, boardRulesWorkflow));
         setResizable(gameInfo.get("resizable").asBoolean());
         pack();
 
