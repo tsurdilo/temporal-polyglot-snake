@@ -42,7 +42,7 @@ class GameRulesWorkflow implements GameRulesWorkflowInterface
     public function init(): void
     {
         $this->x = array_fill(0, $this->allDots, 0);
-        $this->x = array_fill(0, $this->dotSize, 0);
+        $this->y= array_fill(0, $this->allDots, 0);
 
         for($z = 0; $z < $this->dots; $z++) {
             $this->x[$z] = 50 - $z * 10;
