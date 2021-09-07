@@ -6,15 +6,12 @@ let y: number[];
 let dots = 3;
 let allDots: number;
 let dotSize: number;
-let exit: boolean;
-let trigger: Trigger<void>;
+let exit: Trigger<void>;
 
 async function main(iAllDots: number, iDotSize: number): Promise<void> {
   allDots = iAllDots;
   dotSize = iDotSize;
-  while (!exit) {
-    await (trigger = new Trigger<void>())
-  }
+  await (exit = new Trigger<void>())
 }
 
 function getX(): number[] { return x; }
@@ -30,7 +27,6 @@ function init(): void {
     x[i] = 50 - i * 10;
     y[i] = 50;
   }
-  trigger.resolve();
 }
 
 function move(): void {
@@ -38,37 +34,30 @@ function move(): void {
     x[i + 1] = x[i];
     y[i + 1] = y[i];
   }
-  trigger.resolve();
 }
 
 function moveLeft(): void {
   x[0] -= dotSize;
-  trigger.resolve();
 }
 
 function moveRight(): void {
   x[0] += dotSize;
-  trigger.resolve();
 }
 
 function moveUp(): void {
   y[0] -= dotSize;
-  trigger.resolve();
 }
 
 function moveDown(): void {
   y[0] += dotSize;
-  trigger.resolve();
 }
 
 function addDot(): void {
   dots++;
-  trigger.resolve();
 }
 
 function exitGame(): void {
-  exit = true;
-  trigger.resolve();
+  exit.resolve();
 }
 
 export const workflow: GameRulesWorkflowInterface = {
