@@ -7,8 +7,10 @@ import io.temporal.workflow.WorkflowMethod;
 
 @WorkflowInterface
 public interface GameRulesWorkflowInterface {
-    @WorkflowMethod(name = "BoardRules.new")
-    void exec(int allDots, int dotSize);
+    // FIXME: Node SDK uses workflow filename as name
+    @WorkflowMethod(name = "GameRulesWorkflow")
+    // FIXME: Node SDK requires main function
+    void main(int allDots, int dotSize);
 
     @QueryMethod
     int[] getX();
