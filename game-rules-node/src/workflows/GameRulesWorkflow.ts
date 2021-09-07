@@ -1,17 +1,18 @@
 import { Trigger } from '@temporalio/workflow';
 import { GameRulesWorkflowInterface } from '../interfaces/workflows';
 
+const exit = new Trigger<void>();
+
 let x: number[];
 let y: number[];
 let dots = 3;
 let allDots: number;
 let dotSize: number;
-let exit: Trigger<void>;
 
 async function main(iAllDots: number, iDotSize: number): Promise<void> {
   allDots = iAllDots;
   dotSize = iDotSize;
-  await (exit = new Trigger<void>())
+  await exit;
 }
 
 function getX(): number[] { return x; }
