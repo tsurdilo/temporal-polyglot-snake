@@ -1,1 +1,1 @@
-export { workflow as GameRulesWorkflow } from './workflow'
+export { workflow as GameRulesWorkflow } from './gameRules'
