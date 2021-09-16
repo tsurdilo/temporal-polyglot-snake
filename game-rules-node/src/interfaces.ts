@@ -1,8 +1,6 @@
-import { Workflow } from '@temporalio/workflow';
-
-export interface GameRulesWorkflowInterface extends Workflow {
+export type GameRulesWorkflowInterface = (allDots: number, dotSize: number) => {
   // FIXME: @WorkflowMethod(name = "BoardRules.new")
-  main(allDots: number, dotSize: number): Promise<void>;
+  execute(): Promise<void>;
   queries: {
     getX(): number[];
     getY(): number[];
