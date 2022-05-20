@@ -20,7 +20,7 @@ public class SnakeGame extends JFrame {
             .build();
 
     private static final String BOARD_RULES_TASK_QUEUE = "RulesTaskQueue";
-    private static final String BOARD_RULES_WORKFLOW_TYPE = "BoardRules.new";
+    //private static final String BOARD_RULES_WORKFLOW_TYPE = "BoardRules.new";
     private static final WorkflowOptions BOARD_RULES_WORKFLOW_OPTIONS = WorkflowOptions.newBuilder()
             .setWorkflowId("temporalSnakeGameBoardRulesWorkflow")
             .setTaskQueue(BOARD_RULES_TASK_QUEUE)

@@ -31,7 +31,8 @@ public class GameBoard extends JPanel implements ActionListener {
     public GameBoard(GameInfo gameInfo, GameRulesWorkflowInterface boardRulesWorkflow) {
         this.gameInfo = gameInfo;
         this.boardRulesWorkflow = boardRulesWorkflow;
-        WorkflowClient.start(this.boardRulesWorkflow::exec, gameInfo.getAllDots(), gameInfo.getDotSize());
+        // FIXME: Node SDK requires main function
+        WorkflowClient.start(this.boardRulesWorkflow::main, gameInfo.getAllDots(), gameInfo.getDotSize());
 
         initGameBoard();
     }
